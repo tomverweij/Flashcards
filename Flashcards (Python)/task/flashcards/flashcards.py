@@ -4,11 +4,7 @@ class flashcard:
     size = 0
 
     def __init__(self, term, definition):
-        while term in self.all_flashcards:
-            print('The term "{}}" already exists. Try again:'.format(term))
-            term = input()
-        else:
-            self.term = term
+        self.term = term
         self.definition = definition
         flashcard.all_flashcards.append(self)
 
