@@ -1,0 +1,22 @@
+type: code
+files:
+- name: main.py
+  visible: true
+  text: |-
+    class User:
+        def __init__(self, username):
+            self.username = username
+            self.friends = 0
+
+        # fix this method
+        def add_friends(n):
+            friends += n
+            print("{} now has {} friends.".format(username, friends))
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/6985#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Sun, 02 Apr 2023 19:30:52 UTC"
+record: -1
+submission_language: python3
