@@ -297,6 +297,15 @@ files:
     if __name__ == "__main__":
         FlashcardsTest("flashcards.flashcards").run_tests()
   learner_created: false
+- name: flashcards/a.json
+  visible: true
+  learner_created: true
+- name: animal_sounds.txt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/10810#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Mon, 10 Apr 2023 20:29:30 UTC"
 record: -1

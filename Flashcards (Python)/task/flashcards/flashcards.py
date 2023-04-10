@@ -46,8 +46,23 @@ class FlashCards:
         else:
             print('The card has been removed.')
 
-    def import_cards(self, FlashCardsFile):
-        pass
+    def export_file(self):
+        file = open(input('File name:\n'), 'w')
+        file.write(str(self.deck))
+        file.close()
+        print(f'{len(self.deck)} cards have been saved.')
+
+    def import_file(self):
+        try:
+            file = open(input('File name:\n'), 'r')
+        except FileNotFoundError:
+            print('File not found.')
+        else:
+            import_fcs = eval(file.read())
+            file.close()
+            # add and merge
+            self.deck.update(import_fcs)
+            print(f'{len(import_fcs)} cards have been loaded.')
 
     def term_exists(self, term):
         return True if self.deck.get(term) is not None else False
@@ -71,22 +86,6 @@ class FlashCards:
                     return
             print(f"Wrong. The right answer is \"{definition}\".")
 
-class FlashCardsFile:
-    """A FlashCard deck instance written to, or read from diskfile"""
-    def __init__(self, file, FlashCards):
-        pass
-
-    def export_file(self, file):
-        pass
-        # get input exportfile
-        # write
-        # print message n cards have been saved.
-
-    def import_file(self, file):
-        pass
-        # get input importfile
-        # read & merge
-        # print message n cards have been loaded.
 
 class FlashCardsMenu:
     """Actionhandler for a game of FlashCards"""
@@ -100,6 +99,7 @@ class FlashCardsMenu:
                 break
             else:
                 self.handle_action(action, fcs)
+        print('Bye bye!\n')
 
     def handle_action(self, action, FlashCards):
         #add, remove, import, export, ask
@@ -109,9 +109,9 @@ class FlashCardsMenu:
         elif action == 'remove':
             FlashCards.remove_card()
         elif action == 'import':
-            pass
+            FlashCards.import_file()
         elif action == 'export':
-            pass
+            FlashCards.export_file()
         elif action == 'ask':
             ask_nbr = int(input('How many times to ask?\n'))
             q = 0
