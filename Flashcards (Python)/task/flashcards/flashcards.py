@@ -1,15 +1,18 @@
+import random
+
 class FlashCard:
+    """Term to remember. Definition on the back."""
 
     def __init__(self, FlashCards):
-        print(f"The term for card #{len(FlashCards.deck) + 1}:")
+        print(f"The card:")
         while True:
             term = input()
             if FlashCards.term_exists(term):
-                print('The term "{}" already exists. Try again:'.format(term))
+                print('The card "{}" already exists. Try again:'.format(term))
             else:
                 break
 
-        print(f"The definition for card #{len(FlashCards.deck) + 1}:")
+        print(f"The definition of the card:")
         while True:
             definition = input()
             if FlashCards.definition_exists(definition):
@@ -18,14 +21,12 @@ class FlashCard:
                 break
         self.term = term
         self.definition = definition
-        # add it to the deck
-        FlashCards.add_card(self)
 
     def __str__(self):
         return 'Term "{}" defined as "{}"'.format(self.term, self.definition)
 
-
 class FlashCards:
+    """Deck of cards with terms to remember"""
     deck = {}
 
     def __init__(self):
@@ -36,9 +37,20 @@ class FlashCards:
 
     def add_card(self, FlashCard):
         self.deck[FlashCard.term] = FlashCard.definition
+        print(f'The pair ("{FlashCard.term}":"{FlashCard.definition}") has been added')
+
+    def remove_card(self):
+        term = input('Which card?\n')
+        if self.deck.pop(term, 'no card') == 'no card':
+            print(f"Can't remove \"{term}\": there is no such card.")
+        else:
+            print('The card has been removed.')
+
+    def import_cards(self, FlashCardsFile):
+        pass
 
     def term_exists(self, term):
-        return False if self.deck.get(term) is None else True
+        return True if self.deck.get(term) is not None else False
 
     def definition_exists(self, definition):
         for def_ in self.deck.values():
@@ -59,18 +71,58 @@ class FlashCards:
                     return
             print(f"Wrong. The right answer is \"{definition}\".")
 
-# initialize deck
-fcs = FlashCards()
-print("Input the number of cards:")
-init_length = int(input())
+class FlashCardsFile:
+    """A FlashCard deck instance written to, or read from diskfile"""
+    def __init__(self, file, FlashCards):
+        pass
 
-# enter the required amount of cards
-while len(fcs.deck) < init_length:
-    fc = FlashCard(fcs)
-    fcs.add_card(fc)
+    def export_file(self, file):
+        pass
+        # get input exportfile
+        # write
+        # print message n cards have been saved.
 
-# check answers
-for term, definition in fcs.deck.items():
-    fcs.check_answer(term, definition)
+    def import_file(self, file):
+        pass
+        # get input importfile
+        # read & merge
+        # print message n cards have been loaded.
+
+class FlashCardsMenu:
+    """Actionhandler for a game of FlashCards"""
+
+    def __init__(self):
+        fcs = FlashCards()
+        action = []
+        while True:
+            action = input("Input the action (add, remove, import, export, ask, exit):\n")
+            if action == 'exit':
+                break
+            else:
+                self.handle_action(action, fcs)
+
+    def handle_action(self, action, FlashCards):
+        #add, remove, import, export, ask
+        if action == 'add':
+            fc = FlashCard(FlashCards)
+            FlashCards.add_card(fc)
+        elif action == 'remove':
+            FlashCards.remove_card()
+        elif action == 'import':
+            pass
+        elif action == 'export':
+            pass
+        elif action == 'ask':
+            ask_nbr = int(input('How many times to ask?\n'))
+            q = 0
+            while q < ask_nbr:
+                term, definition = random.choice(list(FlashCards.deck.items()))
+                FlashCards.check_answer(term, definition)
+                q += 1
+
+# start the menu
+menu = FlashCardsMenu()
+
+
 
 

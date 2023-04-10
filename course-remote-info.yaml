@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/406082/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Fri, 07 Apr 2023 22:16:45 UTC"
+update_date: "Sun, 09 Apr 2023 20:37:28 UTC"
 stages:
 - id: 673
   step: 10806
@@ -170,10 +170,10 @@ topics:
     theory_id: 13017
   - title: Working with file modes and permissions
     theory_id: 13961
-  - title: Testing user input
-    theory_id: 10494
   - title: os module
     theory_id: 11119
+  - title: Testing user input
+    theory_id: 10494
   - title: Random module
     theory_id: 6263
   - title: Introduction to Linux
