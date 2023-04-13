@@ -94,7 +94,7 @@ class FlashCardsMenu:
         fcs = FlashCards()
         action = []
         while True:
-            action = input("Input the action (add, remove, import, export, ask, exit):\n")
+            action = input("Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):\n")
             if action == 'exit':
                 break
             else:
@@ -119,6 +119,12 @@ class FlashCardsMenu:
                 term, definition = random.choice(list(FlashCards.deck.items()))
                 FlashCards.check_answer(term, definition)
                 q += 1
+        elif action == 'log':
+            pass
+        elif action == 'hardest card':
+            pass
+        elif action == 'reset stats':
+            pass
 
 # start the menu
 menu = FlashCardsMenu()

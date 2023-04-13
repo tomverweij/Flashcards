@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/406082/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Sun, 09 Apr 2023 20:37:28 UTC"
+update_date: "Thu, 13 Apr 2023 20:48:48 UTC"
 stages:
 - id: 673
   step: 10806
@@ -104,12 +104,12 @@ topics:
     theory_id: 7248
   - title: Indexes
     theory_id: 6189
+  - title: List comprehension
+    theory_id: 6315
   - title: Dictionary
     theory_id: 6481
   - title: Dictionary methods
     theory_id: 9008
-  - title: List comprehension
-    theory_id: 6315
   - title: Operations with list
     theory_id: 6031
   - title: Nested lists

@@ -1,0 +1,13 @@
+type: code
+files:
+- name: main.py
+  visible: true
+  text: '# initialize your logger here'
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/15966#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Thu, 13 Apr 2023 20:38:17 UTC"
+record: -1
+submission_language: python3
