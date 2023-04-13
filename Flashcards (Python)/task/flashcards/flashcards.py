@@ -21,6 +21,7 @@ class FlashCard:
                 break
         self.term = term
         self.definition = definition
+        self.mistakes = 0
 
     def __str__(self):
         return 'Term "{}" defined as "{}"'.format(self.term, self.definition)
@@ -36,7 +37,7 @@ class FlashCards:
         return str(self.deck)
 
     def add_card(self, FlashCard):
-        self.deck[FlashCard.term] = FlashCard.definition
+        self.deck[FlashCard.term] = [FlashCard.definition, FlashCard.mistakes]
         print(f'The pair ("{FlashCard.term}":"{FlashCard.definition}") has been added')
 
     def remove_card(self):
@@ -69,18 +70,22 @@ class FlashCards:
 
     def definition_exists(self, definition):
         for def_ in self.deck.values():
-            if def_ == definition:
+            if def_[0] == definition:
                 return True
         return False
 
-    def check_answer(self, term, definition):
+    def check_answer(self, term, data):
         print(f"Print the definition of \"{term}\":")
         answer = input()
+        definition = data[0]
         if definition == answer:
             print("Correct!")
         else:
+            # up the mistakes
+            self.deck[term] = [data[0], data[1] + 1]
+            # and check how wrong
             for term_, definition_ in self.deck.items():
-                if definition_ == answer:
+                if definition_[0] == answer:
                     print('Wrong. The right answer is "{}", but your definition is correct for "{}"'
                           .format(definition, term_))
                     return
@@ -116,8 +121,8 @@ class FlashCardsMenu:
             ask_nbr = int(input('How many times to ask?\n'))
             q = 0
             while q < ask_nbr:
-                term, definition = random.choice(list(FlashCards.deck.items()))
-                FlashCards.check_answer(term, definition)
+                term, data = random.choice(list(FlashCards.deck.items()))
+                FlashCards.check_answer(term, data)
                 q += 1
         elif action == 'log':
             pass
