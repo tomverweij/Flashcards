@@ -415,6 +415,12 @@ files:
 - name: flashcards/a.json
   visible: true
   learner_created: true
+- name: flashcards/b.json
+  visible: true
+  learner_created: true
+- name: flashcards/c.json
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/10811#comment
 status: Unchecked
 record: -1

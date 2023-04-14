@@ -91,6 +91,34 @@ class FlashCards:
                     return
             print(f"Wrong. The right answer is \"{definition}\".")
 
+    def reset_stats(self):
+        for data in self.deck.values():
+            # reset the mistake counter to zero
+            data[1] = 0
+        print("Card statistics have been reset.")
+
+    def hardest_card(self):
+        # order by most mistakes first
+        sorted_deck = dict(sorted(self.deck.items(), key=lambda item: item[1][1], reverse=True))
+        # set highest mistake number
+        highest = self.deck.get(next(iter(sorted_deck)))[1]
+
+        if highest == 0:
+            print("There are no cards with errors.")
+            return
+
+        highest_list = []
+        for fc in sorted_deck.items():
+            if fc[1][1] == highest:
+                highest_list.append(fc[0])
+            else:
+                break
+        if len(highest_list) == 1:
+            print(f'The hardest card is "{highest_list[0]}". You have {highest} errors answering it')
+        else:
+            highest_list_formatted = str(", ".join('"{}"'.format(i) for i in highest_list))
+            print(f'The hardest cards are {highest_list_formatted}')
+
 
 class FlashCardsMenu:
     """Actionhandler for a game of FlashCards"""
@@ -127,9 +155,9 @@ class FlashCardsMenu:
         elif action == 'log':
             pass
         elif action == 'hardest card':
-            pass
+            FlashCards.hardest_card()
         elif action == 'reset stats':
-            pass
+            FlashCards.reset_stats()
 
 # start the menu
 menu = FlashCardsMenu()
