@@ -1,4 +1,34 @@
 import random
+import sys
+import shutil
+
+# tx to https://github.com/sergey-shirnin/LoggingStd_In-Out
+class LoggerOut:
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.filename = filename
+
+    def write(self, message):
+        self.terminal.write(message)
+        with open(self.filename, "a") as file:
+            print(message, file=file, flush=True, end='')
+
+    def flush(self):
+        pass
+
+
+class LoggerIn:
+    def __init__(self, filename):
+        self.terminal = sys.stdin
+        self.filename = filename
+
+    def readline(self):
+        entry = self.terminal.readline()
+        with open(self.filename, "a") as file:
+            print(entry.rstrip(), file=file, flush=True)
+        return entry
+
+
 
 class FlashCard:
     """Term to remember. Definition on the back."""
@@ -99,9 +129,12 @@ class FlashCards:
 
     def hardest_card(self):
         # order by most mistakes first
-        sorted_deck = dict(sorted(self.deck.items(), key=lambda item: item[1][1], reverse=True))
-        # set highest mistake number
-        highest = self.deck.get(next(iter(sorted_deck)))[1]
+        try:
+            sorted_deck = dict(sorted(self.deck.items(), key=lambda item: item[1][1], reverse=True))
+            # set highest mistake number
+            highest = self.deck.get(next(iter(sorted_deck)))[1]
+        except StopIteration:
+            highest = 0
 
         if highest == 0:
             print("There are no cards with errors.")
@@ -126,6 +159,12 @@ class FlashCardsMenu:
     def __init__(self):
         fcs = FlashCards()
         action = []
+        # opening a log file capturing stdin and stdout
+        # to copy from with write_log()
+        default_log = 'default.txt'
+        sys.stdout = LoggerOut(default_log)
+        sys.stdin = LoggerIn(default_log)
+
         while True:
             action = input("Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):\n")
             if action == 'exit':
@@ -153,11 +192,16 @@ class FlashCardsMenu:
                 FlashCards.check_answer(term, data)
                 q += 1
         elif action == 'log':
-            pass
+            self.write_log()
         elif action == 'hardest card':
             FlashCards.hardest_card()
         elif action == 'reset stats':
             FlashCards.reset_stats()
+
+    def write_log(self):
+        file_name = input("File name:\n")
+        shutil.copyfile('default.txt', file_name)
+        print("The log has been saved.")
 
 # start the menu
 menu = FlashCardsMenu()

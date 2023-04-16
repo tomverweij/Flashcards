@@ -421,6 +421,18 @@ files:
 - name: flashcards/c.json
   visible: true
   learner_created: true
+- name: flashcards/default.txt
+  visible: true
+  learner_created: true
+- name: flashcards/my_log.txt
+  visible: true
+  learner_created: true
+- name: default.txt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/10811#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sat, 15 Apr 2023 21:53:26 UTC"
+record: 6

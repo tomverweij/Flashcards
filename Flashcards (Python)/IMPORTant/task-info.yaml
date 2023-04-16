@@ -493,6 +493,49 @@ files:
     if __name__ == "__main__":
         FlashcardsTest("flashcards.flashcards").run_tests()
   learner_created: false
+- name: default.txt
+  visible: true
+  learner_created: true
+- name: flashcards/b.json
+  visible: true
+  learner_created: true
+- name: flashcards/c.json
+  visible: true
+  learner_created: true
+- name: flashcards/my_log.txt
+  visible: true
+  text: |
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    import
+    File name:
+    a.json
+    5 cards have been loaded.
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    log
+    File name:
+    my_log.txt
+  learner_created: true
+- name: flashcards/default.txt
+  visible: true
+  text: |
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    import
+    File name:
+    a.json
+    5 cards have been loaded.
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    log
+    File name:
+    my_log.txt
+    The log has been saved.
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):
+    hardest card
+  learner_created: true
+- name: flashcards/a.json
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/10812#comment
 status: Unchecked
 record: -1

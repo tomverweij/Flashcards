@@ -25,3 +25,4 @@ content:
 - Logging
 - Context manager
 - Flush and file arguments of print
+- Argparse module
