@@ -1,6 +1,7 @@
 import random
 import sys
 import shutil
+import argparse
 
 # tx to https://github.com/sergey-shirnin/LoggingStd_In-Out
 class LoggerOut:
@@ -77,15 +78,22 @@ class FlashCards:
         else:
             print('The card has been removed.')
 
-    def export_file(self):
-        file = open(input('File name:\n'), 'w')
+    def export_file(self, export_to=''):
+        if export_to == '':
+            file = open(input('File name:\n'), 'w')
+        else:
+            file = open(export_to, 'w')
+
         file.write(str(self.deck))
         file.close()
         print(f'{len(self.deck)} cards have been saved.')
 
-    def import_file(self):
+    def import_file(self, import_file=''):
         try:
-            file = open(input('File name:\n'), 'r')
+            if import_file == '':
+                file = open(input('File name:\n'), 'r')
+            else:
+                file = open(import_file, 'r')
         except FileNotFoundError:
             print('File not found.')
         else:
@@ -165,38 +173,48 @@ class FlashCardsMenu:
         sys.stdout = LoggerOut(default_log)
         sys.stdin = LoggerIn(default_log)
 
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--import_from")
+        parser.add_argument("--export_to")
+        args = parser.parse_args()
+
+        if args.import_from is not None:
+            fcs.import_file(args.import_from)
+
         while True:
             action = input("Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):\n")
             if action == 'exit':
+                if args.export_to is not None:
+                    fcs.export_file(args.export_to)
+                print('Bye bye!\n')
                 break
             else:
                 self.handle_action(action, fcs)
-        print('Bye bye!\n')
 
-    def handle_action(self, action, FlashCards):
+    def handle_action(self, action, fcs):
         #add, remove, import, export, ask
         if action == 'add':
-            fc = FlashCard(FlashCards)
-            FlashCards.add_card(fc)
+            fc = FlashCard(fcs)
+            fcs.add_card(fc)
         elif action == 'remove':
-            FlashCards.remove_card()
+            fcs.remove_card()
         elif action == 'import':
-            FlashCards.import_file()
+            fcs.import_file()
         elif action == 'export':
-            FlashCards.export_file()
+            fcs.export_file()
         elif action == 'ask':
             ask_nbr = int(input('How many times to ask?\n'))
             q = 0
             while q < ask_nbr:
-                term, data = random.choice(list(FlashCards.deck.items()))
-                FlashCards.check_answer(term, data)
+                term, data = random.choice(list(fcs.deck.items()))
+                fcs.check_answer(term, data)
                 q += 1
         elif action == 'log':
             self.write_log()
         elif action == 'hardest card':
-            FlashCards.hardest_card()
+            fcs.hardest_card()
         elif action == 'reset stats':
-            FlashCards.reset_stats()
+            fcs.reset_stats()
 
     def write_log(self):
         file_name = input("File name:\n")
